@@ -14,7 +14,6 @@ module.exports = env => {
         devServer: {
             // Adjusting parameters can be done by adding args to "npm run start" -- for example:
             // npm run start -- --env port=9393 --env open --env hosts=subdomain1.www.dev.supercharge.info,subdomain2.www.dev.supercharge.info
-            compress: false,
             port: env.port ?? 9292,
             host: env.open ? "0.0.0.0" : "localhost",
             allowedHosts: env.hosts?.split(",") ?? ["localhost"],
@@ -116,7 +115,7 @@ module.exports = env => {
             })
         ]
     };
-    if (env.WEBPACK_SERVE) {
+    if (process.env.NODE_ENV === 'development') {
         console.log("Using config:");
         console.log(config.devServer);
     }

@@ -251,22 +251,22 @@
 
         <form id="site-edit-form" action="" method="post" class="clearfix">
 
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-5 col-sm-12">
                 <table class="edit-table">
                     <tbody>
                     <tr>
-                        <th>Id</th>
+                        <th>ID</th>
                         <td>
-                            <input name="id" size="10" readonly style="background-color: #F5F5F5"/>
+                            <input name="id" size="10" readonly class="gray"/>
                         </td>
                     </tr>
                     <tr>
                         <th>Modified Date</th>
                         <td><input name="dateModified" size="20" disabled="disabled"
-                                   style="background-color: #F5F5F5">
+                                   class="gray">
                             version:
                             <input name="version" size="3" disabled="disabled"
-                                   style="background-color: #F5F5F5">
+                                   class="gray">
                         </td>
                     </tr>
                     <tr>
@@ -286,6 +286,9 @@
                                 <option name="permit" value="PERMIT" SELECTED>PERMIT</option>
                                 <option name="construction" value="CONSTRUCTION">CONSTRUCTION</option>
                                 <option name="open" value="OPEN">OPEN</option>
+                                <option name="voting" value="VOTING">VOTING</option>
+                                <option name="plan" value="PLAN">PLAN</option>
+                                <option name="expanding" value="EXPANDING">EXPANDING</option>
                             </select>
                             <span class="notify-buttons btn-group" data-toggle="buttons">
                                 <label class="btn btn-default btn-xs active" title="publish to social media"
@@ -341,20 +344,114 @@
                     </tr>
                     <tr>
                         <th>Stall Count</th>
-                        <td><input name="stallCount" inputmode="numeric" size="4"/></td>
+                        <td>
+                            <input name="stallCount" inputmode="numeric" size="4"/>
+                            &nbsp; <b># Trailer-friendly:</b> <input name="stalls[trailerFriendly]" inputmode="numeric" size="4"/>
+                        </td>
                     </tr>
                     <tr>
-                        <th>Power (kW)</th>
+                        <td colspan="2">
+                            <table class="counts">
+                                <tr>
+                                    <th rowspan="2">Stalls</th>
+                                    <td>Urban</td><td>V2</td><td>V3</td><td>V4</td>
+                                </tr>
+                                <tr>
+                                    <td><input name="stalls[urban]" inputmode="numeric" size="4"/></td>
+                                    <td><input name="stalls[v2]" inputmode="numeric" size="4"/></td>
+                                    <td><input name="stalls[v3]" inputmode="numeric" size="4"/></td>
+                                    <td><input name="stalls[v4]" inputmode="numeric" size="4"/></td>
+                                </tr>
+                                <tr class="separator">
+                                    <th rowspan="2">Plugs</th>
+                                    <td title="Tesla Proprietary connector">TPC</td><td title="North American Charging Standard (J3400)">NACS</td><td title="MagicDock (TPC/NACS+CCS1)">MD</td>
+                                    <td title="GB/T">China</td>
+                                    <td title="Mennekes">Type2</td><td title="Combined Charging System 2">CCS2</td><td title="Dual-cable CCS2+Type2">C2+T2</td><td title="Dual-cable CCS2+TPC">C2+TPC</td>
+                                </tr>
+                                <tr>
+                                    <td><input name="plugs[tpc]" inputmode="numeric" size="4"/></td>
+                                    <td><input name="plugs[nacs]" inputmode="numeric" size="4"/></td>
+                                    <td><input name="plugs[magicDock]" inputmode="numeric" size="4"/></td>
+                                    <td><input name="plugs[gbtchina]" inputmode="numeric" size="4"/></td>
+                                    <td><input name="plugs[type2]" inputmode="numeric" size="4"/></td>
+                                    <td><input name="plugs[ccs2]" inputmode="numeric" size="4"/></td>
+                                    <td><input name="plugs[ccs2Type2]" inputmode="numeric" size="4"/></td>
+                                    <td><input name="plugs[ccs2TPC]" inputmode="numeric" size="4"/></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-2 col-sm-12">
+                <table class="edit-table">
+                    <tbody>
+                    <tr>
+                        <th>Max Power (kW)</th>
                         <td>
                             <input name="powerKiloWatt" type="text" inputmode="numeric" size="5" maxlength="3"/>
                         </td>
                     </tr>
-
+                    <tr>
+                        <td><i>Counted</i></td>
+                        <td>
+                            <i>
+                            <select name="counted">
+                                <option name="true" value="true">true</option>
+                                <option name="false" value="false">false</option>
+                            </select>
+                            </i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Solar Canopy</th>
+                        <td>
+                            <select name="solarCanopy">
+                                <option name="false" value="false">false</option>
+                                <option name="true" value="true">true</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Battery/Storage</th>
+                        <td>
+                            <select name="battery">
+                                <option name="false" value="false">false</option>
+                                <option name="true" value="true">true</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Other EVs</th>
+                        <td>
+                            <select name="otherEVs">
+                                <option name="false" value="false">false</option>
+                                <option name="true" value="true">true</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Paid Parking</th>
+                        <td>
+                            <select name="paidParking">
+                                <option name="false" value="false">false</option>
+                                <option name="true" value="true">true</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>PlugShare ID</th>
+                        <td><input name="plugshareId" size="10" inputmode="numeric"/></td>
+                    </tr>
+                    <tr>
+                        <th title="OpenStreetMap">OSM Node ID</th>
+                        <td><input name="osmId" size="10" inputmode="numeric" title="OpenStreetMap"/></td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
-
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-5 col-sm-12">
                 <table class="edit-table">
                     <tbody>
                     <tr>
@@ -382,47 +479,26 @@
                         </td>
                     </tr>
                     <tr>
-                        <th></th>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <th>Counted</th>
+                        <th title='e.g. "2nd level of garage"'>Address Notes</th>
                         <td>
-                            <select name="counted">
-                                <option name="true" value="true">true</option>
-                                <option name="false" value="false">false</option>
-                            </select>
+                            <textarea rows="3" cols="50" maxlength="925" name="addressNotes"></textarea>
                         </td>
                     </tr>
                     <tr>
-                        <th>Solar Canopy</th>
+                        <th>Primary Facility</th>
                         <td>
-                            <select name="solarCanopy">
-                                <option name="false" value="false">false</option>
-                                <option name="true" value="true">true</option>
-                            </select>
+                            Name <input name="facilityName" size="40"/><br/>
+                            Hours <input name="facilityHours" size="40"/>
                         </td>
                     </tr>
                     <tr>
-                        <th>Battery/<wbr/>Storage</th>
+                        <th title='e.g. "valet only"'>Access Notes</th>
                         <td>
-                            <select name="battery">
-                                <option name="false" value="false">false</option>
-                                <option name="true" value="true">true</option>
-                            </select>
+                            <textarea rows="3" cols="50" maxlength="925" name="accessNotes"></textarea>
                         </td>
                     </tr>
-                    <tr>
-                        <th>Other EVs</th>
-                        <td>
-                            <select name="otherEVs">
-                                <option name="false" value="false">false</option>
-                                <option name="true" value="true">true</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Editor Notes</th>
+                    <tr class="gray separator">
+                        <td><i><b>Editor Notes</b><br/>(not visible<br/>to end users)</i></td>
                         <td>
                             <textarea rows="3" cols="50" maxlength="925" name="developerNotes"></textarea>
                         </td>
@@ -517,11 +593,11 @@
             <table>
                 <tr>
                     <td><label>ID</label></td>
-                    <td><input name="id" readonly style="background-color: #F5F5F5"></td>
+                    <td><input name="id" readonly class="gray"></td>
                 </tr>
                 <tr>
                     <td><label>Modified Date</label></td>
-                    <td><input name="modifiedDate" disabled style="background-color: #F5F5F5"></td>
+                    <td><input name="modifiedDate" disabled class="gray"></td>
                 </tr>
                 <tr>
                     <td><label>Date Added</label></td>
