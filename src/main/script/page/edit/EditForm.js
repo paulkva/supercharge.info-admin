@@ -13,6 +13,7 @@ export default class EditForm {
         this.messageBox = $("#edit-site-message-div");
 
         $.getJSON(URL.data.country, $.proxy(this.populateCountryOptions, this));
+        $.getJSON(URL.data.parking, $.proxy(this.populateParkingOptions, this));
 
         EventBus.addListener(EditEvents.site_loaded, this.loadNewSite, this);
         EventBus.addListener(EditEvents.site_reset, this.resetForm, this);
@@ -133,7 +134,16 @@ export default class EditForm {
                 : a.name == 'China' ? -1 : b.name == 'China' ? 1
                 : a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1
             ).map(
-                country => $("<option value='" + country.id + "'>" + country.name + "</option>")
+                c => $("<option value='" + c.id + "'>" + c.name + "</option>")
+            )
+        );
+    }
+
+    populateParkingOptions(parking) {
+        this.parking = Object.fromEntries(parking.map(p => [p.parkingId, p]));
+        $("#parking-select").append(
+            parking.map(
+                p => $(`<option value='${p.parkingId}' title='${p.description}'>${p.name}</option>`)
             )
         );
     }

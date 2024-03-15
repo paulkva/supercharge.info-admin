@@ -342,7 +342,7 @@
                         <td>
                             <input name="stallCount" inputmode="numeric" size="4"/>
                             &nbsp;
-                            <b title="Accessible"># <img src="/images/accessible_sign.svg" width="22" height="22" style="margin-top: -2px;"/>:</b>
+                            <b title="Accessible"># <img src="./images/accessible_sign.svg" width="22" height="22" style="margin-top: -2px;"/>:</b>
                             <input name="stalls[accessible]" inputmode="numeric" size="4"/>
                             &nbsp;
                             <b># Trailer-friendly:</b> <input name="stalls[trailerFriendly]" inputmode="numeric" size="4"/>
@@ -437,16 +437,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Paid Parking</th>
-                        <td>
-                            <select name="paidParking">
-                                <option name="" value="">??</option>
-                                <option name="false" value="false">false</option>
-                                <option name="true" value="true">true</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
                         <th>PlugShare ID</th>
                         <td><input name="plugshareId" size="10" inputmode="numeric"/></td>
                     </tr>
@@ -487,20 +477,28 @@
                     <tr title='e.g. "2nd level of garage"'>
                         <th>Address Notes</th>
                         <td>
-                            <textarea rows="3" cols="50" maxlength="925" name="addressNotes"></textarea>
+                            <textarea rows="2" cols="50" maxlength="925" name="addressNotes"></textarea>
                         </td>
                     </tr>
                     <tr title="Name and hours of the supercharger's host or nearest facility, e.g. Wawa">
                         <th>Primary Facility</th>
                         <td title='Blank for "Hours" indicates unknown hours'>
-                            Name <input name="facilityName" size="40"/><br/>
-                            Hours <input name="facilityHours" size="40"/>
+                            <b>- Name:</b> <input name="facilityName" size="40"/><br/>
+                            <b>- Hours:</b> <input name="facilityHours" size="40"/>
                         </td>
                     </tr>
-                    <tr title='e.g. "valet only"'>
+                    <tr>
+                        <th>Parking</th>
+                        <td>
+                            <select id="parking-select" name="parkingId">
+                                <option value="">(unknown)</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr title='e.g. restrictions or unusual parking details'>
                         <th>Access Notes</th>
                         <td>
-                            <textarea rows="3" cols="50" maxlength="925" name="accessNotes"></textarea>
+                            <textarea rows="2" cols="50" maxlength="925" name="accessNotes"></textarea>
                         </td>
                     </tr>
                     <tr>
