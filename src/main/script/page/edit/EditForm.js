@@ -181,12 +181,10 @@ export default class EditForm {
         const PLUG_MAP = {
             "plugTPC"       : "plugs[tpc]",
             "plugNACS"      : "plugs[nacs]",
-            "plugMagicDock" : "plugs[magicDock]",
-            "plugGBTChina"  : "plugs[gbtchina]",
-            "plugType2"     : "plugs[type2]",
+            "plugCCS1"      : "plugs[ccs1]",
             "plugCCS2"      : "plugs[ccs2]",
-            "plugCCS2Type2" : "plugs[ccs2Type2]",
-            "plugCCS2TPC"   : "plugs[ccs2TPC]"
+            "plugType2"     : "plugs[type2]",
+            "plugGBT"       : "plugs[gbt]"
         };
         const newCountry = this.countries[this.siteEditForm.find('select[name="address[countryId]"]').val()];
         for (var x in PLUG_MAP) {

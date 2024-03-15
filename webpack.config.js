@@ -56,8 +56,19 @@ module.exports = env => {
                 // This is here only so that webpack doesn't try to process font files referenced by bootstrap css.
                 //
                 {
-                    test: /\.(woff2?|ttf|eot|svg)$/i,
+                    test: /\.(woff2?|ttf|eot)$/i,
                     type: 'asset/resource'
+                },
+                //
+                // Make images available to import/reference from JS.
+                //
+                // https://webpack.js.org/guides/asset-modules/
+                {
+                    test: /\.(gif|png|svg)$/,
+                    type: 'asset/resource',
+                    generator: {
+                        filename: 'images/[name][ext]'
+                    }
                 }
             ]
         },

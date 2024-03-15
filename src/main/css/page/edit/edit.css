@@ -41,7 +41,7 @@ table.edit-table td {
     background-color: #def;
 }
 .gray {
-    background-color: #ddd;
+    background-color: #ddd !important;
 }
 .editing td {
     background-color: #ff0;
