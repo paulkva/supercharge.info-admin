@@ -58,10 +58,13 @@ export default class EditList {
                     var testField = blankField.split(".");
                     var filteredJson = [];
                     for (var i = 0; i < json.length; i++) {
-                        if (testField.length > 1) {
-                            if (!(json[i][testField[0]] && (json[i][testField[0]][testField[1]] ?? "") != "")) filteredJson.push(json[i]);
-                        } else {
-                            if ((json[i][testField[0]] ?? "") == "") filteredJson.push(json[i]);
+                        var val = json[i][testField[0]];
+                        if (typeof val === "undefined" || val === null || val === "") {
+                            filteredJson.push(json[i]);
+                        } else if (testField.length > 1) {
+                            if (typeof val[testField[1]] === "undefined" || val[testField[1]] === null || val[testField[1]] === "") filteredJson.push(json[i]);
+                        } else if (testField[0] === "elevationMeters" || testField[0] === "powerKiloWatt" || testField[0] === "stallCount") {
+                            if (val === 0 || val === "0") filteredJson.push(json[i]);
                         }
                     }
                     return filteredJson;
@@ -119,11 +122,11 @@ export default class EditList {
                 <select id="findBlanks-select">
                     <option value="">--- All Sites ---</option>
                     <option value="locationId">Sites Missing 'Tesla Location ID'</option>
-                    <option value="stallCount">Sites Missing 'Stall Count'</option>
+                    <option value="stallCount">Sites Missing or Zero 'Stall Count'</option>
                     <option value="stalls.accessible">Sites Missing '# Accessible Stalls'</option>
                     <option value="stalls.trailerFriendly">Sites Missing '# Trailer-friendly Stalls'</option>
-                    <option value="elevationMeters">Sites Missing 'Elevation (m)'</option>
-                    <option value="powerKiloWatt">Sites Missing 'Max Power (kW)'</option>
+                    <option value="elevationMeters">Sites Missing or Zero 'Elevation (m)'</option>
+                    <option value="powerKiloWatt">Sites Missing or Zero 'Max Power (kW)'</option>
                     <option value="plugshareId">Sites Missing 'PlugShare ID'</option>
                     <option value="osmId">Sites Missing 'OSM Node ID'</option>
                     <option value="address.street">Sites Missing 'Street'</option>
