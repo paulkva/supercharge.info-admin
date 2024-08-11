@@ -119,3 +119,7 @@ table.facility label {
     color: #00c;
     background-color: #def;
 }
+
+#findBlanks-select option {
+    font-size: 14px;
+}

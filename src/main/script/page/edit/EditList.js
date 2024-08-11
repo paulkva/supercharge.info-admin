@@ -52,7 +52,20 @@ export default class EditList {
             </tr>`);
             this.dataTable = this.siteListTable.DataTable({
                 processing: true,
-                ajax: { url: URL.site.loadAll, dataSrc: '' },
+                ajax: { url: URL.site.loadAll, dataSrc: (json) => {
+                    var blankField = $("#findBlanks-select").val();
+                    if ((blankField ?? "") == "") return json;
+                    var testField = blankField.split(".");
+                    var filteredJson = [];
+                    for (var i = 0; i < json.length; i++) {
+                        if (testField.length > 1) {
+                            if (!(json[i][testField[0]] && (json[i][testField[0]][testField[1]] ?? "") != "")) filteredJson.push(json[i]);
+                        } else {
+                            if ((json[i][testField[0]] ?? "") == "") filteredJson.push(json[i]);
+                        }
+                    }
+                    return filteredJson;
+                } },
                 order: [[8, 'desc']],
                 lengthMenu: [10, 25, 100, 1000],
                 columns: [
@@ -102,8 +115,31 @@ export default class EditList {
                     details: false
                 }
             });
-            $(this.dataTable.table().container()).find('.row:first > div:eq(1)').text('All Sites');
+            $(this.dataTable.table().container()).find('.dataTables_title').html(`
+                <select id="findBlanks-select">
+                    <option value="">--- All Sites ---</option>
+                    <option value="locationId">Sites Missing 'Tesla Location ID'</option>
+                    <option value="stallCount">Sites Missing 'Stall Count'</option>
+                    <option value="stalls.accessible">Sites Missing '# Accessible Stalls'</option>
+                    <option value="stalls.trailerFriendly">Sites Missing '# Trailer-friendly Stalls'</option>
+                    <option value="elevationMeters">Sites Missing 'Elevation (m)'</option>
+                    <option value="powerKiloWatt">Sites Missing 'Max Power (kW)'</option>
+                    <option value="plugshareId">Sites Missing 'PlugShare ID'</option>
+                    <option value="osmId">Sites Missing 'OSM Node ID'</option>
+                    <option value="address.street">Sites Missing 'Street'</option>
+                    <option value="address.city">Sites Missing 'City'</option>
+                    <option value="address.state">Sites Missing 'State'</option>
+                    <option value="address.zip">Sites Missing 'Zip'</option>
+                    <option value="addressNotes">Sites Missing 'Address Notes'</option>
+                    <option value="facilityName">Sites Missing 'Primary Facility Name'</option>
+                    <option value="facilityHours">Sites Missing 'Primary Facility Hours'</option>
+                    <option value="parkingId">Sites Missing 'Parking'</option>
+                    <option value="accessNotes">Sites Missing 'Access Notes'</option>
+                    <option value="urlDiscuss">Sites Missing 'URL Discuss'</option>
+                </select>
+            `);
             $(window).keydown($.proxy(this.handleFindShortcut, this));
+            $("#findBlanks-select").on("change", () => this.populateEditSiteTable());
         } else {
             this.dataTable.ajax.reload(null, false);
         }
