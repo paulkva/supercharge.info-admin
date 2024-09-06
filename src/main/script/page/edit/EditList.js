@@ -98,7 +98,7 @@ export default class EditList {
                         render: (d,t,r) => {
                             const gmapQuery = encodeURI(`${r.address.street||''} ${r.address.city||''} ${r.address.state||''} ${r.address.zip||''} ${r.address.country||''}`);
                             const teslaSuffix = r.address.country == 'China' && !['Hong Kong', 'Macau'].includes(r.address.state) ? 'n' : 'om';
-                            const psLink = "https://api.plugshare.com/view/" + (r.plugshareId ? `location/${r.plugshareId}` : `map?latitude=${r.gps.latitude}&longitude=${r.gps.longitude}&spanLat=0.05&spanLng=0.05`);
+                            const psLink = "https://www.plugshare.com/" + (r.plugshareId ? `location/${r.plugshareId}` : `?latitude=${r.gps.latitude}&longitude=${r.gps.longitude}&spanLat=0.05&spanLng=0.05`);
                             const osmLink = "https://www.openstreetmap.org/" + (r.osmId ? `node/${r.osmId}` : `#map=18/${r.gps.latitude}/${r.gps.longitude}`);
                             return `<div style="white-space: nowrap;">
                                 <a title="sc.info map" href="/map?siteID=${r.id}" target="_blank"><img src="../images/logo.svg"/></a>
