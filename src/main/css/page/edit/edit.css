@@ -32,6 +32,9 @@ table.edit-table td {
 .add-change-log {
     font-weight: normal;
 }
+#edit-sites-list-table_wrapper div.dataTables_title {
+    font-size: 20px;
+}
 #edit-sites-list-table-wrapper th {
     top: -1px;
 }
@@ -120,6 +123,20 @@ table.facility label {
     background-color: #def;
 }
 
+#findBlanks-select {
+    height: 30px;
+}
 #findBlanks-select option {
     font-size: 14px;
+}
+
+@media (max-width: 870px) {
+    #edit-sites-list-table_wrapper, #edit-sites-list-table_wrapper div {
+        font-size: 12px !important;
+    }
+}
+@media (max-width: 520px) {
+    #edit-sites-list-table_wrapper div {
+        float: none !important;
+    }
 }
